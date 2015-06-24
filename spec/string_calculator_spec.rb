@@ -11,5 +11,9 @@ RSpec.describe StringCalculator, "#add" do
     expect(StringCalculator.add("")).to eql(0)
   end
 
+  it "returns a single number for a string with a single value" do
+  	expect(StringCalculator.add("")).is_i?
+  end
+
   # more tests go here
 end
