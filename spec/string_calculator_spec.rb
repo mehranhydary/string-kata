@@ -16,45 +16,54 @@ RSpec.describe StringCalculator, "#add" do
 	    expect(StringCalculator.add("")).to eql(0) # "" is an empty string
 	  end
 	end
-
   # more tests go here
-  	context "single value" do # can refactor code if necessary (reduce code)
-	  it "returns 0 for the string '0'" do
-	    expect(StringCalculator.add("0")).to eql(0)
-	  end
-	  it "returns 5 for the string '5'" do
-	    expect(StringCalculator.add("5")).to eql(5)
-	  end
+  	context "single values" do
+	  it "returns 0 for a string '0'" do
+	    expect(StringCalculator.add("0")).to eql(0) 
+	  end  		
+	  it "returns 5 for string with '5'" do
+	    expect(StringCalculator.add("5")).to eql(5) 
+	  end	  
   	end
 
   	context "multiple values" do
-	  it "returns 3 for the string '1,2'" do
-	    expect(StringCalculator.add("1,2")).to eql(3)
+	  it "returns 3 for a string '1,2'" do
+	    expect(StringCalculator.add("1,2")).to eql(3) 
+	  end  		
+	  it "returns 16 for a string '7,9'" do
+	    expect(StringCalculator.add("7,9")).to eql(16) 
 	  end
-	  it "returns 16 for the string '7,9'" do
-	    expect(StringCalculator.add("7,9")).to eql(16) #this is for requirement 4
-	  end	  
-	  it "returns the sum of two digits separated by a comma" do
-	  	expect(StringCalculator.add("12,45")).to eql(57) # this is for requirement 5
-	  end
-	  it "returns the sum of two digits separated by a comma or a new line" do
-	  	expect(StringCalculator.add("7,\n\n\n 9")).to eql(16) # this is requirement 4
-	  end
+	  it "returns 57 for a string '12,45'" do
+	    expect(StringCalculator.add("12,45")).to eql(57) 
+	  end  		
+	  it "returns 201 for a string '42,159'" do
+	    expect(StringCalculator.add("42,159")).to eql(201) 
+	  end  			  
+	  it "returns 2 for a string '1558,2,2442'" do
+	    expect(StringCalculator.add("1558,2,2442")).to eql(2) 
+	  end  			  	  
+  	end
+  	
+  	context "check for delimeters that are not commas" do
+  		it "returns 3 for '1\n\n\n\n\n2'" do
+  			expect(StringCalculator.add("1\n\n\n\n\n2")).to eql(3) 
+  		end
+  		it "returns 7 for '//;\n2;5'" do
+  			expect(StringCalculator.add("//;\n2;5")).to eql(7) 
+  		end  	
   	end
 
-  	context "to handle various delimeters" do
-	 	it "returns the sum by ignoring strings with delimeters e.g. '//;\n2;5' gives 7" do
-	 		expect(StringCalculator.add("//;\n2;5")).to eql(7)
-	 	end
-	end
-
- 	context "throw an exception at negative numbers" do
-	  it "Throws a raise error when negative is put here" do
-	    expect{ StringCalculator.add("-1") }.to raise_error(RuntimeError)
-	  end		
-	  it "Raise an error if there are multiple negative numbers" do
-	   expect{ StringCalculator.add("1, -1, -2") }.to raise_error(RuntimeError, "-1,-2")
-	  end			 	
- 	end
-
+  	context "check for negatives" do
+  		it "returns RuntimeError with raise_error for '-1'" do
+  			expect{ StringCalculator.add("-1") }.to raise_error(RuntimeError)
+  		end
+  		it "returns RuntimeError with raise_error and the negatives for '1,-1,-2'" do
+  			expect{ StringCalculator.add("1,-1,-2") }.to raise_error(RuntimeError, '-1,-2')
+  		end  		
+  	end
+  	context "numbers larger than 1000" do
+  		it "ignores 1000 and lets 1 + 2 = 3 for '1000,1,2'" do
+  			expect(StringCalculator.add("1000,1,2")).to eql(3)
+  		end  		
+  	end
 end
