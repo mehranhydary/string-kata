@@ -43,10 +43,15 @@ RSpec.describe StringCalculator, "#add" do
   	end
 
   	context "to handle various delimeters" do
- 	it "returns the value 7 by ignoring strings with delimeters e.g. '//;\n2;5'" do
- 		expect(StringCalculator.add("//;\n2;5")).to eql(7)
- 	end
+	 	it "returns the value 7 by ignoring strings with delimeters e.g. '//;\n2;5'" do
+	 		expect(StringCalculator.add("//;\n2;5")).to eql(7)
+	 	end
+	end
 
-  	end
+ 	context "throw an exception at negative numbers" do
+	 	it "Throws a raise error when negative is put here" do
+	 		expect{ StringCalculator.add("-1") }.to raise_error(RunTimeError)
+	 	end		
+ 	end
 
 end
