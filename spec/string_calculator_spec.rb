@@ -52,9 +52,9 @@ RSpec.describe StringCalculator, "#add" do
 	  it "Throws a raise error when negative is put here" do
 	    expect{ StringCalculator.add("-1") }.to raise_error(RuntimeError)
 	  end		
-	  # it "Raise an error if there are multiple negative numbers" do
-	  #  expect{ StringCalculator.add("1, -1, -2") }.to raise_error(RuntimeError, "-1,-2")
-	  # end			 	
+	  it "Raise an error if there are multiple negative numbers" do
+	   expect{ StringCalculator.add("1, -1, -2") }.to raise_error(RuntimeError, "-1,-2")
+	  end			 	
  	end
 
 end
